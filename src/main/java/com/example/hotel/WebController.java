@@ -6,16 +6,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 public class WebController {
 
 
-    @GetMapping("/home")
+    @GetMapping("/index")
     public String loadStartPage(Model model){
-        return "home";
+        return "index";
     }
 
     @GetMapping("/reserve")
@@ -23,7 +26,7 @@ public class WebController {
         return "reserve";
     }
 
-    @PostMapping("reserve")
+    @PostMapping("/reserve")
     public String getRegistration(
             @RequestParam String fullName,
             @RequestParam String email,
@@ -34,6 +37,7 @@ public class WebController {
         Visitor visitor = new Visitor(fullName, email, fromDate, toDate);
         DataBasePusher pusher = new DataBasePusher();
         pusher.pushVisitor(visitor);
-        return "redirect:/home";
+        return "redirect:/index";
     }
+
 }
